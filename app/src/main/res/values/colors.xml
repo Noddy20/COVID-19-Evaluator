@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/colorWhite</color>
+    <color name="colorPrimaryDark">@color/colorPrimaryTheme</color>
+    <color name="colorAccent">#3ACDE1</color>
+
+    <!-- Primary Colors -->
+    <color name="colorPrimaryTheme">#0B69FF</color>
+    <color name="colorPrimaryDarkTheme">#0B26B9</color>
+
+    <color name="colorGreen">#00C979</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorRed">#FF0000</color>
+
+    <!-- BG Colors -->
+    <color name="colorBgGreyLight">#FBFBFB</color>
+    <color name="colorBgGrey">#F2F2FA</color>
+
+    <!-- Text Color -->
+    <color name="colorTextWhite">@color/colorWhite</color>
+    <color name="colorTextDark">@color/colorBlack</color>
+    <color name="colorText">#283440</color>
+    <color name="colorTextDim">#8491a2</color>
+    <color name="colorTextLight">#AFAFAF</color>
+
+
+    <!-- Alpha Colors -->
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorBlackAlpha">#55000000</color>
+
+</resources>

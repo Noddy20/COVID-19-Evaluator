@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="MyButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless">
+
+    </style>
+
+    <style name="MyBlueButtonStyle" parent="@style/Widget.AppCompat.Button">
+        <item name="android:background">@drawable/bg_blue_rounded_btn</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="MyTabStyle" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorHeight">2.5dp</item>
+        <!--<item name="android:elevation" tools:targetApi="lollipop">0dp</item>-->
+        <item name="tabIconTint">@color/colorPrimary</item>
+        <item name="tabSelectedTextColor">@color/colorPrimaryTheme</item>
+        <item name="tabTextColor">@color/colorTextDim</item>
+        <item name="tabIndicatorColor">@color/colorPrimaryTheme</item>
+        <!--<item name="android:fontFamily">@font/monster_rat_medium</item>-->
+    </style>
+
+</resources>

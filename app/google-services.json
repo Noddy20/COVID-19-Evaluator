@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "175692268453",
+    "firebase_url": "https://mdm-covid-19-cd447.firebaseio.com",
+    "project_id": "mdm-covid-19-cd447",
+    "storage_bucket": "mdm-covid-19-cd447.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175692268453:android:f8ed208bb51a9453181e4c",
+        "android_client_info": {
+          "package_name": "com.mdm_app_covid_19.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175692268453-mno4077msn4br0uvgft070s98cm71imu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mdm_app_covid_19.dev",
+            "certificate_hash": "48fd447e4248c70ef7e875455677ce5dd1df9830"
+          }
+        },
+        {
+          "client_id": "175692268453-ub5fs1vdmuhfv65ms1k9guciglaomme7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ84gCirxKwZfQgIfknyw1CxtnF2ScZX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175692268453-ub5fs1vdmuhfv65ms1k9guciglaomme7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

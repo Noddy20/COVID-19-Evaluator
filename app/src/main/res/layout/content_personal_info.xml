@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name"
+        android:padding="@dimen/_10sdp"
+        android:id="@+id/etName"
+        android:inputType="text"
+        android:maxLength="255"
+        android:background="@drawable/bg_grey_rounded_edittext"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/age"
+        android:padding="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:id="@+id/etAge"
+        android:inputType="number"
+        android:maxLength="3"
+        android:background="@drawable/bg_grey_rounded_edittext"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:background="@drawable/bg_grey_rounded_edittext"
+        android:padding="@dimen/_10sdp">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/relation"
+            android:id="@+id/etRelation"
+            android:inputType="text"
+            android:background="@color/colorTransparent"
+            android:layout_centerVertical="true"
+            />
+        <ImageView
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            app:srcCompat="@drawable/ic_arrow_drop_down"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/phone_num"
+        android:padding="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:id="@+id/etPhone"
+        android:inputType="phone"
+        android:background="@drawable/bg_grey_rounded_edittext"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        android:padding="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:id="@+id/etMail"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/bg_grey_rounded_edittext"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/address"
+        android:padding="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:id="@+id/etAddress"
+        android:inputType="textMultiLine"
+        android:lines="3"
+        android:gravity="start|top"
+        android:maxLength="1000"
+        android:background="@drawable/bg_grey_rounded_edittext"
+        />
+
+</merge>
