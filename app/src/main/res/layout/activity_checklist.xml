@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:focusableInTouchMode="true"
-    tools:context="com.mdm_app_covid_19.views.activities.SignUpActivity">
+    tools:context="com.mdm_app_covid_19.views.activities.ChecklistActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -27,7 +26,13 @@
                 android:padding="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="vertical">
-                <include layout="@layout/content_personal_info" />
+
+                <com.mdm_app_covid_19.views.customViews.ScrollDisabledRecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recyclerView"
+                    />
+
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

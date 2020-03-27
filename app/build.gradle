@@ -47,8 +47,8 @@ android {
     productFlavors {
         production {
             manifestPlaceholders = [appLabel: "COVID - 19"]
-            buildConfigField 'String', 'BASE_URL', '"http://13.235.62.17:3000/"'
-            buildConfigField 'String', 'BASE_URL_API', '"http://13.235.62.17:3000/api/"'
+            buildConfigField 'String', 'BASE_URL', '"http://35.154.166.4:3000/"'
+            buildConfigField 'String', 'BASE_URL_API', '"http://35.154.166.4:3000/api/"'
 
             buildConfigField 'String', 'PLACES_API_KEY', '"AIzaSyDUVaukpOtw-LWgL5zHIEm6p4-U96Gg6Eg"'
         }
@@ -57,8 +57,8 @@ android {
             applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
 
-            buildConfigField 'String', 'BASE_URL', '"http://13.235.62.17:3000/"'
-            buildConfigField 'String', 'BASE_URL_API', '"http://13.235.62.17:3000/api/"'
+            buildConfigField 'String', 'BASE_URL', '"http://35.154.166.4:3000/"'
+            buildConfigField 'String', 'BASE_URL_API', '"http://35.154.166.4:3000/api/"'
 
             buildConfigField 'String', 'PLACES_API_KEY', '"AIzaSyDUVaukpOtw-LWgL5zHIEm6p4-U96Gg6Eg"'
 

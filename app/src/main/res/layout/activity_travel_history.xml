@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.mdm_app_covid_19.views.activities.TravelHistoryActivity">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/btnNext">
+
+        <include layout="@layout/bar_collapsing_appbar" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBgGreyLight"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
+                android:id="@+id/viewRootContent"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/bg_grey_rounded">
+
+                    <android.widget.Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/btnInternational"
+                        android:background="@drawable/bg_accent_rounded"
+                        android:clickable="true"
+                        android:focusable="true"
+                        style="@style/MyButtonStyle"
+                        android:text="@string/international"
+                        android:textColor="@color/colorWhite"
+                        />
+                    <android.widget.Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/btnDomestic"
+                        android:clickable="true"
+                        android:focusable="true"
+                        style="@style/MyButtonStyle"
+                        android:text="@string/domestic"
+                        android:background="?attr/selectableItemBackground"
+                        android:textColor="@color/colorTextDim"
+                        />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:id="@+id/selCountry"
+                    android:background="@drawable/bg_grey_rounded_edittext"
+                    android:padding="@dimen/_10sdp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/country"
+                        android:id="@+id/txtCountry"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/_14ssp"
+                        android:background="@color/colorTransparent"
+                        android:layout_centerVertical="true"
+                        />
+                    <RelativeLayout
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true">
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_centerInParent="true"
+                            app:srcCompat="@drawable/ic_arrow_drop_down"
+                            />
+                        <ProgressBar
+                            android:id="@+id/progressBarState"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:visibility="gone"
+                            style="@android:style/Widget.DeviceDefault.ProgressBar.Small" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:id="@+id/selCity"
+                    android:visibility="gone"
+                    android:background="@drawable/bg_grey_rounded_edittext"
+                    android:padding="@dimen/_10sdp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/city"
+                        android:id="@+id/txtCity"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/_14ssp"
+                        android:background="@color/colorTransparent"
+                        android:layout_centerVertical="true"
+                        />
+                   <RelativeLayout
+                       android:layout_width="@dimen/_25sdp"
+                       android:layout_height="@dimen/_25sdp"
+                       android:layout_alignParentEnd="true"
+                       android:layout_centerVertical="true">
+                       <ImageView
+                           android:layout_width="@dimen/_20sdp"
+                           android:layout_height="@dimen/_20sdp"
+                           android:layout_centerInParent="true"
+                           app:srcCompat="@drawable/ic_arrow_drop_down"
+                           />
+                       <ProgressBar
+                           android:id="@+id/progressBarCity"
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:layout_gravity="center_vertical"
+                           android:visibility="gone"
+                           style="@android:style/Widget.DeviceDefault.ProgressBar.Small" />
+                   </RelativeLayout>
+
+                </RelativeLayout>
+
+                <com.mdm_app_covid_19.views.customViews.ScrollDisabledRecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recyclerView"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <android.widget.Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/next"
+        style="@style/MyBlueButtonStyle"
+        android:layout_margin="@dimen/_10sdp"
+        android:id="@+id/btnNext"
+        android:layout_alignParentBottom="true"/>
+
+
+</RelativeLayout>

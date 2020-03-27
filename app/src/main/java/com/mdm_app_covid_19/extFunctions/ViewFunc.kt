@@ -2,12 +2,18 @@ package com.mdm_app_covid_19.extFunctions
 
 import android.os.Build
 import android.text.Spanned
+import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
+import androidx.annotation.AttrRes
 import androidx.annotation.StyleRes
 import androidx.core.text.HtmlCompat
+import androidx.core.view.ViewCompat
 import androidx.core.widget.TextViewCompat
+import com.mdm_app_covid_19.R
+import org.jetbrains.anko.backgroundResource
+import java.lang.Exception
+
 
 fun TextView.setHtmlText(string: String){
     text = HtmlCompat.fromHtml(string, HtmlCompat.FROM_HTML_MODE_LEGACY)
@@ -31,6 +37,18 @@ fun View.invisible(){
 
 fun View.show(){
     this.visibility = View.VISIBLE
+}
+
+fun View.setAttrAsDrawableBackground(@AttrRes attrRes : Int){
+    val a = context.obtainStyledAttributes(intArrayOf(attrRes))
+    try {
+        ViewCompat.setBackground(this, a.getDrawable(0))
+    }catch (e: Exception){
+        Log.e("AttrAsDrawable", "AttrAsDrawable Exc $e")
+        this.backgroundResource = R.color.colorTransparent
+    } finally {
+        a.recycle()
+    }
 }
 
 fun View.setEnableDisable(isEnb: Boolean){

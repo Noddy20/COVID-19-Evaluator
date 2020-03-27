@@ -27,6 +27,30 @@
     <string name="powered_by">Powered By</string>
     <string name="title_mdm_hospital">Mathuradas Mathur Hospital</string>
     <string name="relation">Relation</string>
+    <string name="international">International</string>
+    <string name="domestic">Domestic</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
+    <string name="lorem_question">Do you came in direct close physicals of laboratory confirmed positive case?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="back">Back</string>
+    <string name="conclusion">Conclusion</string>
+    <string name="lorem_conclusion">Seek a consultation with Doctor.</string>
+    <string name="err_enter_valid_name">Enter valid name!</string>
+    <string name="err_enter_valid_age">Enter valid age!</string>
+    <string name="err_enter_valid_mail">Enter valid email!</string>
+    <string name="err_enter_valid_address">Enter valid address!</string>
+    <string name="str_search">Search here..</string>
+    <string name="not_data_found">No Data Found!</string>
+    <string name="no_search_results">No Search Result!</string>
+    <string name="select_relation">Select Relation</string>
+    <string name="err_select_relation">Select relation!</string>
+    <string name="state">State</string>
+    <string name="title_travel_history">Travel History</string>
+    <string name="select_country">Select Country</string>
+    <string name="select_state">Select State</string>
+    <string name="select_city">Select City</string>
 
 
     <string-array name="arr_relations">

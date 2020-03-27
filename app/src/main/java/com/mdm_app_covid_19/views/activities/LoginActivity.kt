@@ -7,8 +7,10 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.transition.TransitionManager
+import com.bumptech.glide.Glide
 import com.mdm_app_covid_19.R
 import com.mdm_app_covid_19.data.models.UserModel
+import com.mdm_app_covid_19.data.repo.AuthRepo
 import com.mdm_app_covid_19.data.repo.ResponseStatus
 import com.mdm_app_covid_19.extFunctions.*
 import com.mdm_app_covid_19.utils.DisposableClickListener
@@ -17,6 +19,9 @@ import com.mdm_app_covid_19.viewModels.LoginActivityVM
 import com.mdm_app_covid_19.viewModels.MyViewModelFactory
 import com.mdm_app_covid_19.views.dialogs.DialogMsg
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_login.imgBg
+import kotlinx.android.synthetic.main.activity_splash.*
+import org.jetbrains.anko.sdk27.coroutines.onFocusChange
 import org.jetbrains.anko.toast
 
 
@@ -73,10 +78,26 @@ class LoginActivity : BaseActivity() {
         btnResendOtp.hide()
         btnResendOtp.setEnableDisable(false)
 
+        Glide.with(this)
+            .load(R.drawable.img_login_bg)
+            .fitCenter()
+            .into(imgBg)
+
         setLiveDataObservers()
         setClickListeners()
         setTextChangeListener()
 
+        etPhnNum.onFocusChange { v, hasFocus ->
+            viewPhnEdit.isSelected = hasFocus
+        }
+
+        /*val params = HashMap<String, Any?>()
+        params["mobileNo"] = "+918282828282"
+        viewModel.serverLoginLD.observe(this, Observer {
+            Log.v(TAG, "User $it")
+        })
+
+        viewModel.setUserDataParam(params)*/
     }
 
     private fun setTextChangeListener(){
@@ -118,10 +139,10 @@ class LoginActivity : BaseActivity() {
 
         viewModel.serverLoginLD.observe(this, Observer {
             Log.v(TAG, "serverLoginLD States $it")
-            if (it.data != null) {
+            if (it.data != null && !it.data?.userId.isNullOrEmpty()) {
                 UserModel.saveUserModel(it.data!!)
             }else{
-                UserModel.saveUserModel(UserModel("", phoneNumber, "", ""))
+                UserModel.saveUserModel(UserModel("", phoneNumber, "", "", "", ""))
             }
             toast(R.string.verif_success)
             dialogMsg.dismiss()
@@ -134,6 +155,7 @@ class LoginActivity : BaseActivity() {
         txtTimer.show()
         etPhnNum.isEnabled = false
         //btnSendOtp.setEnableDisable(false)
+        btnResendOtp.setEnableDisable(false)
 
         object : CountDownTimer(60000, 1000) {
             override fun onTick(millisUntilFinished: Long) {

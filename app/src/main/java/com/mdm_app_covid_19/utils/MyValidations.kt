@@ -10,7 +10,7 @@ object MyValidations {
 
     private val PASSWORD_PATTERN = Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@\$%^&*-]).{8,}\$")
 
-    private val MobilePattern = Pattern.compile("^[0-9]{7,16}$")
+    private val MobilePattern = Pattern.compile("^[+]?[0-9]{10,13}$",Pattern.CASE_INSENSITIVE)
 
     private val PIN_CODE = Pattern.compile("^[1-9][0-9]{5}$")
 
@@ -30,7 +30,7 @@ object MyValidations {
     }
 
     fun isValidAge(age: String): Boolean {
-        return age.length < 4
+        return age.length in 1..3
     }
 
     fun isValidOtp(age: String): Boolean {

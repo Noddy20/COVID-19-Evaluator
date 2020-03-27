@@ -19,17 +19,21 @@ data class UserModel(
     @Json(name = "name")
     var name: String?,
     @Json(name = "user_id")
-    var userId: String?
+    var userId: String?,
+    @Json(name = "age")
+    var age: String?,
+    @Json(name = "email")
+    var email: String?
 ): Parcelable{
 
     companion object{
 
         fun saveUserModel(userModel: UserModel){
-            if (!userModel.userId?.trim().isNullOrEmpty()){
+            if (!userModel.mobileNo?.trim().isNullOrEmpty()){
                 try {
                     GetSetSharedPrefs.putData("USER_MODEL", MyMoshi.getMoshiJsonObjectAdapter(UserModel::class.java).toJson(userModel))
                 }catch (e: Exception){
-                    Log.e("UserModel", "Exc $e")
+                    Log.e("UserModel", "Exc save $e")
                 }
             }
         }
@@ -38,9 +42,13 @@ data class UserModel(
             try {
                return MyMoshi.getMoshiJsonObjectAdapter(UserModel::class.java).fromJson(GetSetSharedPrefs.getData("USER_MODEL"))
             }catch (e: Exception){
-                Log.e("UserModel", "Exc $e")
+                Log.e("UserModel", "Exc get $e")
             }
             return null
+        }
+
+        fun clearSavedLogin(){
+            GetSetSharedPrefs.putData("USER_MODEL", "")
         }
 
     }

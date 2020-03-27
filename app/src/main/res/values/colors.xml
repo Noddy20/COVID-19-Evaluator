@@ -22,8 +22,11 @@
     <color name="colorTextDark">@color/colorBlack</color>
     <color name="colorText">#283440</color>
     <color name="colorTextDim">#8491a2</color>
-    <color name="colorTextLight">#AFAFAF</color>
+    <color name="colorTextLight">#DFDFDF</color>
 
+    <!-- Black Color vars -->
+    <color name="colorBlackVar1">#292E42</color>
+    <color name="colorBlackVar2">#40485D</color>
 
     <!-- Alpha Colors -->
     <color name="colorTransparent">#00000000</color>

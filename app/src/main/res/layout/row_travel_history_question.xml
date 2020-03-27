@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/_6sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="@dimen/_6sdp"
+        app:cardElevation="@dimen/_4sdp"
+        app:cardBackgroundColor="@color/colorBgGrey">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_15sdp"
+            android:textSize="@dimen/_12ssp"
+            android:id="@+id/txtQuestion"
+            android:text="@string/lorem_question"
+            />
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_6sdp"
+        >
+        <android.widget.Button
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_30sdp"
+            android:id="@+id/btnYes"
+            android:foreground="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            style="@style/MyButtonStyle"
+            android:text="@string/yes"
+            android:background="@drawable/bg_accent_rounded"
+            android:textColor="@color/colorWhite"
+            />
+        <android.widget.Button
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_30sdp"
+            android:id="@+id/btnNo"
+            android:foreground="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/bg_grey_rounded"
+            android:layout_marginStart="@dimen/_15sdp"
+            style="@style/MyButtonStyle"
+            android:text="@string/no"
+            android:textColor="@color/colorTextDim"
+            />
+    </LinearLayout>
+
+</LinearLayout>

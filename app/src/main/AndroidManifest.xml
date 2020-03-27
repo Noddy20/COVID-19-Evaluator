@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.mdm_app_covid_19">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,7 +13,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+        <activity android:name=".views.activities.ResultActivity"></activity>
+        <activity android:name=".views.activities.ChecklistActivity" />
+        <activity android:name=".views.activities.TravelHistoryActivity" />
         <activity android:name=".views.activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,11 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.activities.SignUpActivity">
-
-        </activity>
+        <activity android:name=".views.activities.SignUpActivity" />
         <activity android:name=".views.activities.ToWhomActivity" />
-        <activity android:name=".views.activities.LoginActivity"></activity>
+        <activity android:name=".views.activities.LoginActivity"/>
         <activity android:name=".views.activities.MainActivity" />
     </application>
 

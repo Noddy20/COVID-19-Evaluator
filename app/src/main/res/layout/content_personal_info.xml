@@ -28,14 +28,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_15sdp"
+        android:id="@+id/selRelation"
+        android:visibility="gone"
         android:background="@drawable/bg_grey_rounded_edittext"
         android:padding="@dimen/_10sdp">
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/relation"
-            android:id="@+id/etRelation"
-            android:inputType="text"
+            android:textColor="@color/colorText"
+            android:id="@+id/txtRelation"
+            android:textSize="@dimen/_14ssp"
             android:background="@color/colorTransparent"
             android:layout_centerVertical="true"
             />

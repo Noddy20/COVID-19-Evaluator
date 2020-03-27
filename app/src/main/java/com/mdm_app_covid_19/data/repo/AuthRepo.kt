@@ -46,7 +46,6 @@ class AuthRepo(private val compositeDisposable: CompositeDisposable, private val
 
     fun sendOtp(phoneNo: String, onCodeSent: (verificationId: String?) -> Unit) : Single<PhoneAuthCredential> {
         return Single.create { emitter ->
-            emitter.setDisposable(compositeDisposable)
 
             val mCallBacks: OnVerificationStateChangedCallbacks =
                 object : OnVerificationStateChangedCallbacks() {
@@ -127,24 +126,16 @@ class AuthRepo(private val compositeDisposable: CompositeDisposable, private val
             data.postValue(BaseResponse(status, msg, null, ResponseStatus.Failed))
         }
 
+        Log.v(TAG, "Url ${Urls.GET_USER_BY_MOBILE}  ${JSONObject(params)}")
+
         FastNetworking.makeRxCallObservable(FastNetworking.getRxCallPostObservable(Urls.GET_USER_BY_MOBILE, tag, params), compositeDisposable, tag,
             onApiResult = object : FastNetworking.OnApiResult{
                 override fun onApiSuccess(response: JSONObject?) {
+                    Log.v(TAG, "$tag $response")
                     if (response != null){
                         try {
-                            val status = response.optInt(BaseResponse.KEY_STATUS)
-                            val msg = response.optString(BaseResponse.KEY_MSG, "Something went wrong!")
-                            if (status == 1) {
-                                val userModel = MyMoshi.getMoshiJsonObjectAdapter(UserModel::class.java).fromJson(response.toString())
-                                if (userModel != null) {
-                                    data.postValue(BaseResponse(status, msg, userModel, ResponseStatus.Loaded))
-                                } else {
-                                    data.postValue(BaseResponse(status, msg, userModel, ResponseStatus.Failed))
-                                }
-                                Log.v(TAG, "$tag Result $userModel")
-                            }else{
-                                setNull(status, msg, null)
-                            }
+                            val baseResponse = BaseResponse.parseBaseResponseObj<UserModel?>(response)
+                            data.postValue(baseResponse)
                         }catch (e: Exception){
                             setNull(e = e)
                         }

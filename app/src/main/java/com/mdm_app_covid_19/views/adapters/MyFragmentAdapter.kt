@@ -46,7 +46,7 @@ class MyFragmentAdapter(val context: Context, fragmentManager: FragmentManager):
         val mView = LayoutInflater.from(context).inflate(R.layout.row_fragment_pager_custom_tab, null)
         mView.customTabTxt.text = mFragmentTitleList[position]
        // mView.customTabTxt.typeface = CustomFont.boldFont(context)
-        mView.customTabTxt.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+        mView.customTabTxt.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryTheme))
         return mView
     }
 

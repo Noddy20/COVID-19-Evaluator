@@ -27,8 +27,11 @@ class MyApp : MultiDexApplication() {
         appContext = this
 
         FirebaseInstances(this)
-        AndroidNetworking.initialize(applicationContext)
         GetSetSharedPrefs.init(applicationContext)
+
+
+
+        AndroidNetworking.initialize(applicationContext)
 
         ANDROID_ID = Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID)
     }

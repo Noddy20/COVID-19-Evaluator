@@ -4,11 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/colorPrimaryTheme"
     tools:context="com.mdm_app_covid_19.views.activities.SplashActivity">
 
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imgBg"
+        />
+
+    <ImageView
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:id="@+id/imgCovidLogo"
+        android:scaleType="fitCenter"
+        android:layout_centerInParent="true"
+        />
 
     <TextView
         android:layout_width="match_parent"
@@ -31,7 +43,7 @@
         android:gravity="center"
         android:id="@+id/txtMdmTitle"
         android:textSize="@dimen/_12ssp"
-        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_40sdp"
         />
 
 </RelativeLayout>

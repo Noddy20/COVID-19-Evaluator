@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linParentSelectionList"
+    android:layout_width="@dimen/_260sdp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_15sdp"
+    android:layout_marginBottom="@dimen/_15sdp"
+    app:cardElevation="@dimen/_2sdp"
+    app:cardCornerRadius="@dimen/_5sdp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/btnSelect"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_4sdp"
+            android:background="@color/colorPrimaryTheme"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txtTitle"
+                android:textStyle="bold"
+                android:layout_toStartOf="@+id/imgClose"
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:text="@string/app_name"
+                android:textSize="@dimen/_14ssp"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/imgClose"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                app:srcCompat="@drawable/ic_close_circle_red"
+                android:visibility="gone"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/etSearchHere"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_grey_rounded_edittext"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:padding="@dimen/_8sdp"
+            android:gravity="start|center_vertical"
+            android:hint="@string/str_search"
+            android:maxLength="50"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textAlignment="viewStart"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <include layout="@layout/content_empty_layout"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <android.widget.Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Select"
+        android:background="@color/colorPrimaryTheme"
+        android:visibility="gone"
+        android:id="@+id/btnSelect"
+        android:textColor="@android:color/white"
+        />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.mdm_app_covid_19.views.activities.ResultActivity">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/btnBack">
+
+        <include layout="@layout/bar_collapsing_appbar" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBgGreyLight"
+            android:padding="@dimen/_10sdp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:cardBackgroundColor="@color/colorBlackVar1"
+                app:cardCornerRadius="@dimen/_6sdp"
+                app:cardElevation="@dimen/_1sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_15sdp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/conclusion"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_20ssp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lorem_conclusion"
+                        android:textColor="@color/colorTextLight"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:textSize="@dimen/_13ssp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:background="@drawable/bg_black_var2_rounded"
+                        android:layout_marginTop="@dimen/_20sdp">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            app:srcCompat="@drawable/ic_link"
+                            android:background="@drawable/bg_accent_rounded"
+                            android:padding="@dimen/_8sdp"
+                            />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_35sdp"
+                            android:layout_weight="1"
+                            android:paddingStart="@dimen/_5sdp"
+                            android:paddingEnd="@dimen/_5sdp"
+                            android:text="@string/app_name"
+                            android:textColor="@color/colorWhite"
+                            android:autoLink="all"
+                            android:textColorLink="@color/colorWhite"
+                            android:gravity="start|center_vertical"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <android.widget.Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/back"
+        style="@style/MyBlueButtonStyle"
+        android:layout_margin="@dimen/_10sdp"
+        android:id="@+id/btnBack"
+        android:layout_alignParentBottom="true"/>
+
+
+</RelativeLayout>

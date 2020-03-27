@@ -2,6 +2,7 @@ package com.mdm_app_covid_19.utils
 
 import android.util.Log
 import android.widget.EditText
+import android.widget.TextView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -17,7 +18,7 @@ object MyTextChangeValidationUtils {
     const val VALIDATION_MANUAL = 5
     const val VALIDATION_OTP = 6
 
-    fun initRxValidation(compositeDisposable: CompositeDisposable, editText: EditText,
+    fun initRxValidation(compositeDisposable: CompositeDisposable, editText: TextView,
                          validationType: Int, skipCount: Long = 1, onSubscribeAction: ((input: String) -> Unit)? = null) {
 
         if (compositeDisposable.isDisposed) return
@@ -39,7 +40,7 @@ object MyTextChangeValidationUtils {
                 })
     }
 
-    fun applyValidation(editText: EditText, validationType: Int, strInput: String?, errMessage: String? = null) : Boolean {
+    fun applyValidation(editText: TextView, validationType: Int, strInput: String?, errMessage: String? = null) : Boolean {
         when (validationType) {
             VALIDATION_NAME -> {
                 if (!strInput.isNullOrEmpty() && MyValidations.isValidName(strInput)) {

@@ -14,12 +14,23 @@
         android:padding="@dimen/_10sdp"
         >
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/txtTitle"
+            android:scaleType="fitCenter"
+            android:id="@+id/imgBg"
+            />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/txtTitle"
             android:text="@string/am_i_infected"
             android:gravity="center"
-            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_40sdp"
+            android:layout_above="@id/viewInputs"
             android:textColor="@color/colorText"
             android:textSize="@dimen/_14ssp"
             />
@@ -41,6 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/india_country_code"
+                    android:maxLength="15"
                     android:background="@color/colorTransparent"
                     android:enabled="false"
                     android:layout_gravity="center_vertical"
@@ -94,6 +106,7 @@
                     android:hint="@string/otp"
                     android:padding="@dimen/_10sdp"
                     android:id="@+id/etOtp"
+                    android:maxLength="6"
                     android:inputType="number"
                     android:background="@drawable/bg_grey_rounded_edittext"
                     />

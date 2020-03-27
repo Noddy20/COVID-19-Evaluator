@@ -2,16 +2,25 @@ package com.mdm_app_covid_19.views.dialogs
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.Window
 import androidx.annotation.LayoutRes
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mdm_app_covid_19.R
+import com.mdm_app_covid_19.data.models.SelectionListDialogModel
 import com.mdm_app_covid_19.extFunctions.hide
 import com.mdm_app_covid_19.extFunctions.show
+import com.mdm_app_covid_19.utils.MyTextChangeValidationUtils
+import com.mdm_app_covid_19.views.adapters.SelectionListDialogAdapter
+import io.reactivex.disposables.CompositeDisposable
+import kotlinx.android.synthetic.main.content_empty_layout.*
 import kotlinx.android.synthetic.main.dialog_info_common.*
 import kotlinx.android.synthetic.main.dialog_progress.*
+import kotlinx.android.synthetic.main.dialog_selection_list.*
 
 class DialogMsg(private val mActivity: Activity){
 
@@ -86,5 +95,75 @@ class DialogMsg(private val mActivity: Activity){
 
         show()
     }
+
+    fun showSelectionListDialog(strTitle: String?, dataArr: List<SelectionListDialogModel>, selDataArr: List<SelectionListDialogModel>? = null,
+                                isMultiSel: Boolean = false, searchEnabled: Boolean = false, compositeDisposable: CompositeDisposable? = null, isCancelable: Boolean = false,
+                                dialogDismissListener: DialogInterface.OnDismissListener? = null, onItemClick:((pos: SelectionListDialogModel) -> Unit)? = null,
+                                onMultiSelect:((selected: List<SelectionListDialogModel>) -> Unit)? = null){
+        try {
+            dismiss()
+            mDialog = initNewDialog(R.layout.dialog_selection_list)
+            mDialog?.run {
+                setOnDismissListener(dialogDismissListener)
+                setCancelable(isCancelable)
+                imgClose.isVisible = isCancelable
+                btnSelect.isVisible = isMultiSel
+
+                imgClose.setOnClickListener { dismiss() }
+
+                val adapter = SelectionListDialogAdapter(mActivity, isMultiSel)
+                {
+                    dismiss()
+                    onItemClick?.invoke(it)
+                }
+                recyclerView.layoutManager = LinearLayoutManager(mActivity)
+                recyclerView.adapter = adapter
+
+                adapter.setDataList(dataArr)
+                selDataArr?.let { adapter.setSelectedList(ArrayList(it)) }
+
+                btnSelect.setOnClickListener {
+                    onMultiSelect?.invoke(adapter.getSelectedModels())
+                    dismiss()
+                }
+
+                if (strTitle != null) {
+                    txtTitle.text = strTitle
+                    txtTitle.show()
+                } else
+                    txtTitle.hide()
+
+                if (searchEnabled) {
+                    etSearchHere.show()
+
+                    compositeDisposable?.let {
+                        MyTextChangeValidationUtils.initRxValidation(it, etSearchHere, validationType = MyTextChangeValidationUtils.VALIDATION_MANUAL) { str ->
+                            if (str.isNotEmpty()) {
+                                val arrayFiltered = dataArr.filter { selModel -> selModel.str.contains(str, true) }
+                                if (arrayFiltered.isNullOrEmpty()){
+                                    recyclerView.hide()
+                                    viewEmpty.show()
+                                    txtEmpty.text = mActivity.getString(R.string.no_search_results)
+                                }else{
+                                    viewEmpty.hide()
+                                    recyclerView.show()
+                                }
+                                adapter.setDataList(arrayFiltered)
+                            } else {
+                                adapter.setDataList(dataArr)
+                            }
+                        }
+                    }
+
+                } else etSearchHere.hide()
+            }
+
+            show()
+
+        }catch (e: Exception){
+            Log.e("DialogMsg", "Exc $e")
+        }
+    }
+
 
 }
