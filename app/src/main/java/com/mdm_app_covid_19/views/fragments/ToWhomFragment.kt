@@ -18,10 +18,7 @@ import com.mdm_app_covid_19.data.models.QuestionModel
 import com.mdm_app_covid_19.data.models.SelectionListDialogModel
 import com.mdm_app_covid_19.data.models.SubmitDataModel
 import com.mdm_app_covid_19.data.models.UserModel
-import com.mdm_app_covid_19.extFunctions.addViewClicks
-import com.mdm_app_covid_19.extFunctions.goToTravelHistoryActivity
-import com.mdm_app_covid_19.extFunctions.hide
-import com.mdm_app_covid_19.extFunctions.plusAssign
+import com.mdm_app_covid_19.extFunctions.*
 import com.mdm_app_covid_19.utils.DisposableClickListener
 import com.mdm_app_covid_19.utils.MyTextChangeValidationUtils
 import com.mdm_app_covid_19.viewModels.MyViewModelFactory
@@ -31,6 +28,7 @@ import com.mdm_app_covid_19.views.dialogs.DialogMsg
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.content_personal_info.*
 import kotlinx.android.synthetic.main.content_personal_info.view.*
+import org.jetbrains.anko.sdk27.coroutines.onFocusChange
 
 class ToWhomFragment : Fragment(){
 
@@ -157,6 +155,20 @@ class ToWhomFragment : Fragment(){
     }
 
     private fun onNextClick(){
+        var uId = ""
+        UserModel.getSavedUserModel()?.let {
+            if (it.userId?.trim().isNullOrEmpty()){
+                    dialogMsg.showGeneralError("Incomplete inputs!", btnTxt = "Retry", onClickAction = {
+                        UserModel.clearSavedLogin()
+                        mActivity.goToLoginActivity()
+                        mActivity.finishAffinity()
+                    })
+                    return
+            }else{
+                uId = it.userId!!
+            }
+        }
+
         val name = etName.text?.toString()?.trim()
         if (!MyTextChangeValidationUtils.applyValidation(etName, MyTextChangeValidationUtils.VALIDATION_EMPTY, name, getString(R.string.err_enter_valid_name))) return
 
@@ -177,6 +189,7 @@ class ToWhomFragment : Fragment(){
 
         val submitDataModel = SubmitDataModel()
         submitDataModel.apply {
+            userId = uId
             memberName = name
             memberAge = age
             memberRelation = relation

@@ -99,7 +99,7 @@ class TravelHistoryRepo(private val compositeDisposable: CompositeDisposable, pr
     fun getCitiesListObservable(stateName: String): LiveData<BaseResponse<List<CityModel>?>> {
         val data = MutableLiveData<BaseResponse<List<CityModel>?>>()
 
-        val tag = "StatesList"
+        val tag = "CitiesList"
 
         fun setNull(status: Int = 0, msg: String = "Something went wrong!", e: Exception? = null){
             Log.v(TAG, "$tag $e")

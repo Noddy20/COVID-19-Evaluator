@@ -6,10 +6,9 @@ import androidx.activity.viewModels
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.mdm_app_covid_19.R
-import com.mdm_app_covid_19.extFunctions.addViewClicks
-import com.mdm_app_covid_19.extFunctions.goToTravelHistoryActivity
-import com.mdm_app_covid_19.extFunctions.goToWhomActivity
-import com.mdm_app_covid_19.extFunctions.plusAssign
+import com.mdm_app_covid_19.data.models.SubmitDataModel
+import com.mdm_app_covid_19.data.models.UserModel
+import com.mdm_app_covid_19.extFunctions.*
 import com.mdm_app_covid_19.utils.DisposableClickListener
 import com.mdm_app_covid_19.utils.SetUpToolbar
 import com.mdm_app_covid_19.viewModels.LoginActivityVM
@@ -37,9 +36,17 @@ class ToWhomActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_to_whom)
 
-        SetUpToolbar.setCollapseToolbar(this, getString(R.string.title_to_whom), true)
+        SetUpToolbar.setCollapseToolbar(this, getString(R.string.title_to_whom), false)
 
-        init()
+
+        if (UserModel.getSavedUserModel()?.userId?.trim().isNullOrEmpty()){
+            dialogMsg.showGeneralError("Session expired!", btnTxt = "Retry", onClickAction = {
+                goToLoginActivity()
+                finishAffinity()
+            })
+        }else{
+            init()
+        }
 
     }
 
@@ -52,6 +59,8 @@ class ToWhomActivity : BaseActivity() {
         setClickListeners()
 
         dialogMsg = DialogMsg(this)
+
+        SubmitDataModel.clearSubmitModel()
 
         adapter = MyFragmentAdapter(this, supportFragmentManager)
 

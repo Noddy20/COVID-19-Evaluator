@@ -14,7 +14,7 @@ operator fun CompositeDisposable.plusAssign(disposable: Disposable?) {
         add(disposable)
 }
 
-fun DisposableObserver<Int>.addViewClicks(vararg views : View, throttle: Long = 1, unit: TimeUnit = TimeUnit.SECONDS){
+fun DisposableObserver<Int>.addViewClicks(vararg views : View, throttle: Long = 500, unit: TimeUnit = TimeUnit.MILLISECONDS){
     kotlin.runCatching {
         var observable = RxView.clicks(views[0]).map { views[0].id }
         for (i in 1 until views.size) {

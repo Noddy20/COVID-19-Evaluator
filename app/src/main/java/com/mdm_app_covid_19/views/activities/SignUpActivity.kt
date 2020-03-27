@@ -1,28 +1,33 @@
 package com.mdm_app_covid_19.views.activities
 
-import androidx.appcompat.app.AppCompatActivity
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.util.Log
 import androidx.activity.viewModels
-import androidx.core.view.isVisible
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.mdm_app_covid_19.R
 import com.mdm_app_covid_19.data.models.UserModel
-import com.mdm_app_covid_19.data.repo.AuthRepo
 import com.mdm_app_covid_19.data.repo.ResponseStatus
-import com.mdm_app_covid_19.extFunctions.addViewClicks
-import com.mdm_app_covid_19.extFunctions.goToWhomActivity
-import com.mdm_app_covid_19.extFunctions.hide
-import com.mdm_app_covid_19.extFunctions.plusAssign
+import com.mdm_app_covid_19.extFunctions.*
 import com.mdm_app_covid_19.utils.DisposableClickListener
 import com.mdm_app_covid_19.utils.MyTextChangeValidationUtils
 import com.mdm_app_covid_19.utils.SetUpToolbar
 import com.mdm_app_covid_19.viewModels.MyViewModelFactory
 import com.mdm_app_covid_19.viewModels.SignUpActivityVM
-import com.mdm_app_covid_19.viewModels.ToWhomActivityVM
 import com.mdm_app_covid_19.views.dialogs.DialogMsg
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.content_personal_info.*
+import org.jetbrains.anko.toast
 
 
 class SignUpActivity : BaseActivity() {
@@ -81,6 +86,9 @@ class SignUpActivity : BaseActivity() {
 
         setLiveDataObservers()
 
+        if (userModel?.address.isNullOrEmpty())
+            retrieveAddress()
+
     }
 
     private fun setTextChangeListener(){
@@ -112,8 +120,10 @@ class SignUpActivity : BaseActivity() {
             if (it.responseStatus == ResponseStatus.Loaded && !it.data?.userId.isNullOrEmpty()){
                 UserModel.saveUserModel(it.data!!)
                 goToWhomActivity()
+                finish()
             }else{
-                dialogMsg.showGeneralError()
+                val msg = if (isNetConnected()) "Something went wrong!" else getString(R.string.no_internet)
+                dialogMsg.showGeneralError(msg, cancelable = true)
             }
 
         })
@@ -130,7 +140,7 @@ class SignUpActivity : BaseActivity() {
         if (!MyTextChangeValidationUtils.applyValidation(etPhone, MyTextChangeValidationUtils.VALIDATION_PHONE, phone, getString(R.string.err_enter_valid_phn_num))) return
 
         val mail = etMail.text?.toString()?.trim()
-        if (!MyTextChangeValidationUtils.applyValidation(etMail, MyTextChangeValidationUtils.VALIDATION_EMAIL, mail, getString(R.string.err_enter_valid_mail))) return
+        if (!mail.isNullOrEmpty() && !MyTextChangeValidationUtils.applyValidation(etMail, MyTextChangeValidationUtils.VALIDATION_EMAIL, mail, getString(R.string.err_enter_valid_mail))) return
 
         val address = etAddress.text?.toString()?.trim()
         if (!MyTextChangeValidationUtils.applyValidation(etAddress, MyTextChangeValidationUtils.VALIDATION_EMPTY, address, getString(R.string.err_enter_valid_address))) return
@@ -145,6 +155,50 @@ class SignUpActivity : BaseActivity() {
             it.address = address
 
             viewModel.setSignUpData(it)
+        }
+    }
+
+    private fun retrieveAddress(){
+        if (hasPermissions(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )){
+            Log.v(TAG, "retrieveAddress")
+            val client: FusedLocationProviderClient =
+                LocationServices.getFusedLocationProviderClient(this)
+            client.lastLocation.addOnSuccessListener { location ->
+                if (location != null) {
+                    setLocationObserver(location)
+                }
+            }
+        }else{
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION), 1001)
+        }
+    }
+
+    private fun setLocationObserver(location: Location){
+        Log.v(TAG, "setLocationObserver ${location.latitude}")
+        viewModel.getAddressObservable(location.latitude, location.longitude).observe(this, Observer {
+            etAddress.setText(it?:"")
+        })
+    }
+
+    fun hasPermissions(vararg permissions: String): Boolean{
+        for (permission in permissions) {
+            if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED)
+                return false
+        }
+        return true
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if(requestCode == 1001 && grantResults[0] == PackageManager.PERMISSION_GRANTED ){
+            retrieveAddress()
         }
     }
 

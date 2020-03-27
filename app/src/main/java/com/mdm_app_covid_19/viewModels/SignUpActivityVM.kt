@@ -38,5 +38,8 @@ class SignUpActivityVM(application: Application, private val bundle: Bundle?): B
         return signUpRepo.getSignUpObservable(params)
     }
 
+    fun getAddressObservable(lat: Double, lon: Double): LiveData<String?>{
+        return signUpRepo.getAddressObservable(lat, lon)
+    }
 
 }

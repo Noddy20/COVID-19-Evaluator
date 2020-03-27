@@ -2,8 +2,8 @@
     <string name="app_name">COVID - 19</string>
     <string name="please_wait">Please wait</string>
     <string name="india_country_code">+91</string>
-    <string name="phone_num">Phone No.</string>
-    <string name="otp">OTP</string>
+    <string name="phone_num">Phone No.*</string>
+    <string name="otp">OTP*</string>
     <string name="am_i_infected">Am I infected with the corona virus?</string>
     <string name="send_otp">Send OTP</string>
     <string name="otp_sent">OTP Sent Successfully</string>
@@ -20,20 +20,18 @@
     <string name="err_enter_valid_otp">Enter valid 6 digit OTP!</string>
     <string name="resend_otp">Resend OTP</string>
     <string name="next">Next</string>
-    <string name="name">Name</string>
+    <string name="name">Name*</string>
     <string name="email">Email</string>
-    <string name="address">Address</string>
-    <string name="age">Age</string>
+    <string name="address">Address*</string>
+    <string name="age">Age*</string>
     <string name="powered_by">Powered By</string>
     <string name="title_mdm_hospital">Mathuradas Mathur Hospital</string>
-    <string name="relation">Relation</string>
+    <string name="relation">Relation*</string>
     <string name="international">International</string>
     <string name="domestic">Domestic</string>
-    <string name="country">Country</string>
-    <string name="city">City</string>
+    <string name="country">Country*</string>
+    <string name="city">City*</string>
     <string name="lorem_question">Do you came in direct close physicals of laboratory confirmed positive case?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
     <string name="back">Back</string>
     <string name="conclusion">Conclusion</string>
     <string name="lorem_conclusion">Seek a consultation with Doctor.</string>
@@ -46,11 +44,22 @@
     <string name="no_search_results">No Search Result!</string>
     <string name="select_relation">Select Relation</string>
     <string name="err_select_relation">Select relation!</string>
-    <string name="state">State</string>
+    <string name="state">State*</string>
     <string name="title_travel_history">Travel History</string>
     <string name="select_country">Select Country</string>
     <string name="select_state">Select State</string>
     <string name="select_city">Select City</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="yes_hin">हाँ</string>
+    <string name="no_hin">नहीं</string>
+    <string name="yes_hin_eng">Yes / हाँ</string>
+    <string name="no_hin_eng">No / नहीं</string>
+    <string name="title_checklist">Start Checklist</string>
+    <string name="title_app_recommendation">App Recommendation</string>
+    <string name="re_evaluate">Reevaluate</string>
+    <string name="no_internet">You are offline!</string>
 
 
     <string-array name="arr_relations">

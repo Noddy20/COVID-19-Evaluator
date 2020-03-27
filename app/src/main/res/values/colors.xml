@@ -12,6 +12,7 @@
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorRed">#FF0000</color>
+    <color name="colorRedLight">#FF8787</color>
 
     <!-- BG Colors -->
     <color name="colorBgGreyLight">#FBFBFB</color>

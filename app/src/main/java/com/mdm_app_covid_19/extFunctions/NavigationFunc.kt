@@ -28,3 +28,10 @@ fun Context.goToCheckListActivity(){
 fun Context.goToResultActivity(){
     startActivity<ResultActivity>()
 }
+
+fun Context.goToWebView(title: String, url: String){
+    startActivity<WebViewActivity>(
+        WebViewActivity.EXTRA_TITLE to title,
+        WebViewActivity.EXTRA_URL to url
+        )
+}

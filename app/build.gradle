@@ -120,6 +120,9 @@ dependencies {
     implementation "com.intuit.ssp:ssp-android:$ssp_sdp_version"
     implementation "com.intuit.sdp:sdp-android:$ssp_sdp_version"
 
+    //Places API library
+    //implementation 'com.github.SachinRupani:MyPlaces:1.0.0-beta'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

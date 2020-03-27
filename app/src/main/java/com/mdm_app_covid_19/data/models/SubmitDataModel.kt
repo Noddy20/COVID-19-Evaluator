@@ -34,9 +34,9 @@ data class SubmitDataModel(
     @Json(name = "user_id")
     var userId: String? = null,
     @Json(name = "checklist_que")
-    var checklistQue: @RawValue List<QuestionModel>? = null,
+    var checklistQue: String? = null,
     @Json(name = "travel_que")
-    var travelQue: @RawValue List<QuestionModel>? = null
+    var travelQue: String? = null
 ) : Parcelable {
 
     companion object{
@@ -60,6 +60,13 @@ data class SubmitDataModel(
 
         fun clearSubmitModel(){
             GetSetSharedPrefs.putData("SUBMIT_DATA_MODEL", "")
+        }
+
+        fun isInComplete(submitDataModel: SubmitDataModel?): Boolean{
+            kotlin.runCatching {
+                return submitDataModel.toString().contains("null")
+            }
+            return true
         }
 
     }

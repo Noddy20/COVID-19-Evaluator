@@ -15,7 +15,9 @@ import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
 import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks
+import com.mdm_app_covid_19.R
 import com.mdm_app_covid_19.data.models.UserModel
+import com.mdm_app_covid_19.extFunctions.isNetConnected
 import com.mdm_app_covid_19.httpCalls.FastNetworking
 import com.mdm_app_covid_19.httpCalls.MyMoshi
 import com.mdm_app_covid_19.httpCalls.Urls
@@ -123,6 +125,7 @@ class AuthRepo(private val compositeDisposable: CompositeDisposable, private val
 
         fun setNull(status: Int = 0, msg: String = "Something went wrong!", e: Exception? = null){
             Log.v(TAG, "$tag $e")
+            val msg = if (mApp.isNetConnected()) msg else mApp.getString(R.string.no_internet)
             data.postValue(BaseResponse(status, msg, null, ResponseStatus.Failed))
         }
 

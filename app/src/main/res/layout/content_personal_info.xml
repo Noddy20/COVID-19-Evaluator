@@ -45,6 +45,7 @@
         <ImageView
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             app:srcCompat="@drawable/ic_arrow_drop_down"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
@@ -59,6 +60,7 @@
         android:layout_marginTop="@dimen/_15sdp"
         android:id="@+id/etPhone"
         android:inputType="phone"
+        android:maxLength="15"
         android:background="@drawable/bg_grey_rounded_edittext"
         />
 
@@ -69,6 +71,7 @@
         android:padding="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:id="@+id/etMail"
+        android:maxLength="50"
         android:inputType="textEmailAddress"
         android:background="@drawable/bg_grey_rounded_edittext"
         />

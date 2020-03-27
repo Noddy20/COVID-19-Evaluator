@@ -120,7 +120,8 @@ class LoginActivity : BaseActivity() {
                     dialogMsg.showPleaseWait("Verifying Phone No.")
                 }
             }else{
-                dialogMsg.showGeneralError()
+                val msg = if (isNetConnected()) "Something went wrong!" else getString(R.string.no_internet)
+                dialogMsg.showGeneralError(msg, cancelable = true)
                 btnResendOtp.setEnableDisable(true)
             }
         })
@@ -132,7 +133,8 @@ class LoginActivity : BaseActivity() {
                 params["mobileNo"] = phoneNumber
                 viewModel.setUserDataParam(params)
             }else{
-                dialogMsg.showGeneralError()
+                val msg = if (isNetConnected()) "Something went wrong!" else getString(R.string.no_internet)
+                dialogMsg.showGeneralError(msg, cancelable = true)
             }
         })
 
@@ -147,6 +149,7 @@ class LoginActivity : BaseActivity() {
             toast(R.string.verif_success)
             dialogMsg.dismiss()
             goToSignUpActivity()
+            finish()
         })
 
     }

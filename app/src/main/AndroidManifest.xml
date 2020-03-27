@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".MyApp"
@@ -16,7 +18,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".views.activities.ResultActivity"></activity>
+        <activity android:name=".views.activities.WebViewActivity"/>
+        <activity android:name=".views.activities.ResultActivity" />
         <activity android:name=".views.activities.ChecklistActivity" />
         <activity android:name=".views.activities.TravelHistoryActivity" />
         <activity android:name=".views.activities.SplashActivity">
@@ -28,8 +31,7 @@
         </activity>
         <activity android:name=".views.activities.SignUpActivity" />
         <activity android:name=".views.activities.ToWhomActivity" />
-        <activity android:name=".views.activities.LoginActivity"/>
-        <activity android:name=".views.activities.MainActivity" />
+        <activity android:name=".views.activities.LoginActivity" />
     </application>
 
 </manifest>

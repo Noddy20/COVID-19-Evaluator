@@ -9,19 +9,40 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/cardView"
         app:cardUseCompatPadding="true"
         app:cardCornerRadius="@dimen/_6sdp"
-        app:cardElevation="@dimen/_4sdp"
+        app:cardElevation="@dimen/_2sdp"
         app:cardBackgroundColor="@color/colorBgGrey">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="@dimen/_15sdp"
-            android:textSize="@dimen/_12ssp"
-            android:id="@+id/txtQuestion"
-            android:text="@string/lorem_question"
-            />
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/_13ssp"
+                android:id="@+id/txtQuestion"
+                android:text="@string/lorem_question"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/questionDivider"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/colorBgGreyLight"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_13ssp"
+                android:id="@+id/txtQuestionHindi"
+                android:text="@string/lorem_question"
+                />
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
@@ -38,7 +59,7 @@
             android:clickable="true"
             android:focusable="true"
             style="@style/MyButtonStyle"
-            android:text="@string/yes"
+            android:text="@string/yes_hin_eng"
             android:background="@drawable/bg_accent_rounded"
             android:textColor="@color/colorWhite"
             />
@@ -52,7 +73,7 @@
             android:background="@drawable/bg_grey_rounded"
             android:layout_marginStart="@dimen/_15sdp"
             style="@style/MyButtonStyle"
-            android:text="@string/no"
+            android:text="@string/no_hin_eng"
             android:textColor="@color/colorTextDim"
             />
     </LinearLayout>

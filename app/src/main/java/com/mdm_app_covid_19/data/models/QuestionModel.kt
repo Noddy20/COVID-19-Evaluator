@@ -16,5 +16,11 @@ data class QuestionModel(
     @Json(name = "que_type")
     var queType: String?,
     @Json(name = "question")
-    var question: String?
-) : Parcelable
+    var question: String?,
+    @Json(name = "question_hindi")
+    var questionHindi: String?
+) : Parcelable {
+
+    var answer = "0"
+
+}
