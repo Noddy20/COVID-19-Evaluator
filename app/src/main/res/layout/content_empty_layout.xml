@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:text="@string/not_data_found"
         android:gravity="center"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
         android:textColor="@color/colorText"
         android:textSize="@dimen/_14ssp"
         android:id="@+id/txtEmpty"

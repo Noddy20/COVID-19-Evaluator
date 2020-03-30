@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">COVID - 19</string>
+    <string name="app_name">COVID - 19 Tracker</string>
     <string name="please_wait">Please wait</string>
     <string name="india_country_code">+91</string>
     <string name="phone_num">Phone No.*</string>
@@ -29,8 +29,9 @@
     <string name="relation">Relation*</string>
     <string name="international">International</string>
     <string name="domestic">Domestic</string>
-    <string name="country">Country*</string>
-    <string name="city">City*</string>
+    <string name="country">Country</string>
+    <string name="state">State</string>
+    <string name="city">City</string>
     <string name="lorem_question">Do you came in direct close physicals of laboratory confirmed positive case?</string>
     <string name="back">Back</string>
     <string name="conclusion">Conclusion</string>
@@ -44,7 +45,6 @@
     <string name="no_search_results">No Search Result!</string>
     <string name="select_relation">Select Relation</string>
     <string name="err_select_relation">Select relation!</string>
-    <string name="state">State*</string>
     <string name="title_travel_history">Travel History</string>
     <string name="select_country">Select Country</string>
     <string name="select_state">Select State</string>
@@ -58,8 +58,11 @@
     <string name="no_hin_eng">No / नहीं</string>
     <string name="title_checklist">Start Checklist</string>
     <string name="title_app_recommendation">App Recommendation</string>
-    <string name="re_evaluate">Reevaluate</string>
+    <string name="re_evaluate">Re-evaluate</string>
     <string name="no_internet">You are offline!</string>
+    <string name="tracker">Tracker</string>
+    <string name="link_covid_govt_advisory">Corona - Government Advisory</string>
+    <string name="select_travel_history">If you have traveled international or domestic, please select travel history -</string>
 
 
     <string-array name="arr_relations">

@@ -19,7 +19,19 @@
         android:layout_height="@dimen/_100sdp"
         android:id="@+id/imgCovidLogo"
         android:scaleType="fitCenter"
+        android:src="@drawable/img_covid_19_logo"
         android:layout_centerInParent="true"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tracker"
+        android:layout_below="@id/imgCovidLogo"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:layout_marginTop="@dimen/minus_15"
+        android:fontFamily="@font/font_open_sans_bold"
+        android:textSize="@dimen/_24ssp"
         />
 
     <TextView

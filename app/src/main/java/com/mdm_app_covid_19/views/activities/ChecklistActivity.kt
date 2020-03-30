@@ -1,8 +1,10 @@
 package com.mdm_app_covid_19.views.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mdm_app_covid_19.R
@@ -18,14 +20,26 @@ import com.mdm_app_covid_19.viewModels.ToWhomActivityVM
 import com.mdm_app_covid_19.views.adapters.TravelHistoryQuestionAdapter
 import com.mdm_app_covid_19.views.dialogs.DialogMsg
 import kotlinx.android.synthetic.main.activity_checklist.*
+import kotlinx.android.synthetic.main.activity_checklist.btnNext
+import kotlinx.android.synthetic.main.activity_checklist.recyclerView
+import kotlinx.android.synthetic.main.activity_checklist.scrollView
+import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.activity_travel_history.*
 import org.jetbrains.anko.toast
 import org.json.JSONArray
 import org.json.JSONObject
+import java.lang.ref.WeakReference
 
 class ChecklistActivity : BaseActivity() {
 
     companion object{
         private const val TAG = "ChecklistActivity"
+
+        var mActivity: WeakReference<ChecklistActivity>? = null
+
+        private fun initialize(activity: ChecklistActivity) {
+            mActivity = WeakReference(activity)
+        }
     }
 
     private val viewModel: ChecklistActivityVM by viewModels { MyViewModelFactory(application) }
@@ -43,6 +57,11 @@ class ChecklistActivity : BaseActivity() {
 
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
+    }
+
     private fun init(){
         setClickListeners()
 
@@ -57,6 +76,8 @@ class ChecklistActivity : BaseActivity() {
 
     private fun setClickListeners(){
         compositeDisposable += clickObservable
+
+        btnNext.typeface = ResourcesCompat.getFont(this, R.font.font_open_sans_bold)
 
         clickObservable.addViewClicks(btnNext)
     }
@@ -89,7 +110,7 @@ class ChecklistActivity : BaseActivity() {
 
         if(submitModel == null){
             dialogMsg.showGeneralError("Incomplete inputs!", btnTxt = "Retry", onClickAction = {
-                goToWhomActivity()
+                goToWhomActivity(false)
                 finishAffinity()
             })
 
@@ -100,6 +121,9 @@ class ChecklistActivity : BaseActivity() {
         val jsonArr = JSONArray()
 
         var totalPoints = 0
+            kotlin.runCatching {
+                totalPoints =  submitModel.totalPoints?.toInt()?:0
+            }
 
         repeat(questions.size){
             JSONObject().let { obj ->
@@ -107,8 +131,8 @@ class ChecklistActivity : BaseActivity() {
                 if (question.answer != "1" && question.answer != "2"){
                     adapter.updateUnAnswered(it)
                     kotlin.runCatching {
-                        //recyclerView.smoothScrollToPosition(it)
-                        scrollView.scrollBy(0, recyclerView.getChildAt(it).bottom)
+                        recyclerView.getChildAt(it).parent.requestChildFocus(recyclerView.getChildAt(it), recyclerView.getChildAt(it))
+                        //scrollView.scrollBy(0, recyclerView.getChildAt(it).bottom)
                     }
                     return
                 }
@@ -128,7 +152,14 @@ class ChecklistActivity : BaseActivity() {
 
         SubmitDataModel.saveSubmitModel(submitModel)
 
-        goToResultActivity()
+        goToResultActivity(true)
+
+        /*Intent(this, ResultActivity::class.java).let {
+            it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        }.also {
+            startActivity(it)
+        }*/
+
     }
 
 }

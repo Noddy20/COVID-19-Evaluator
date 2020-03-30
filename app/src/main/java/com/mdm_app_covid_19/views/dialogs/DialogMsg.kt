@@ -8,6 +8,8 @@ import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.Window
 import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mdm_app_covid_19.R
@@ -17,10 +19,13 @@ import com.mdm_app_covid_19.extFunctions.show
 import com.mdm_app_covid_19.utils.MyTextChangeValidationUtils
 import com.mdm_app_covid_19.views.adapters.SelectionListDialogAdapter
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.content_empty_layout.*
 import kotlinx.android.synthetic.main.dialog_info_common.*
 import kotlinx.android.synthetic.main.dialog_progress.*
 import kotlinx.android.synthetic.main.dialog_selection_list.*
+import org.jetbrains.anko.backgroundResource
+import org.jetbrains.anko.textColor
 
 class DialogMsg(private val mActivity: Activity){
 
@@ -75,21 +80,66 @@ class DialogMsg(private val mActivity: Activity){
         show()
     }
 
-    fun showGeneralError(strMsg: String = "Something went wrong!", cancelable: Boolean = false, onClickAction: (() -> Unit)? = null, btnTxt: String = "Ok"){
+    fun showGeneralError(strMsg: String = "Something went wrong!", cancelable: Boolean = false, onClickAction: (() -> Unit)? = null, btnTxt: String = "OK"){
         mDialog = initNewDialog(R.layout.dialog_info_common)
 
         mDialog?.apply {
             textView.text = strMsg
             setCancelable(cancelable)
 
-            if (onClickAction != null){
-                btnLayout.show()
+            btnLayout.show()
+            btnRight.hide()
+           // btnLeft.backgroundResource = R.drawable.bg_blue_rounded_btn
+            btnLeft.textColor = ContextCompat.getColor(mActivity, R.color.colorPrimaryTheme)
+            btnLeft.text = btnTxt
+
+            ResourcesCompat.getFont(mActivity, R.font.font_open_sans_regular).let {
+                btnLeft.typeface = it
+                btnRight.typeface = it
+            }
+
+            btnLeft.setOnClickListener{
+                this@DialogMsg.dismiss()
+                onClickAction?.invoke()
+            }
+        }
+
+        show()
+    }
+
+    fun showAppUpdate(strMsg: String = "App update available!", updateClick: (() -> Unit)? = null, laterClick: (() -> Unit)? = null, isMandatory: Boolean = false){
+        mDialog = initNewDialog(R.layout.dialog_info_common)
+
+        mDialog?.apply {
+            textView.text = strMsg
+            setCancelable(!isMandatory)
+
+            btnLayout.show()
+
+            btnLeft.text = "Update Now"
+            btnLeft.textColor = ContextCompat.getColor(mActivity, R.color.colorPrimaryTheme)
+
+            if (isMandatory){
                 btnRight.hide()
-                btnLeft.text = btnTxt
-                btnLeft.setOnClickListener{
-                    onClickAction.invoke()
-                    this@DialogMsg.dismiss()
-                }
+            }else{
+                btnRight.text = "Later"
+                btnRight.textColor = ContextCompat.getColor(mActivity, R.color.colorTextDim)
+                btnRight.show()
+            }
+
+            // btnLeft.backgroundResource = R.drawable.bg_blue_rounded_btn
+
+            ResourcesCompat.getFont(mActivity, R.font.font_open_sans_regular).let {
+                btnLeft.typeface = it
+                btnRight.typeface = it
+            }
+
+            btnLeft.setOnClickListener{
+                updateClick?.invoke()
+            }
+
+            btnRight.setOnClickListener {
+                laterClick?.invoke()
             }
         }
 
@@ -108,6 +158,7 @@ class DialogMsg(private val mActivity: Activity){
                 setCancelable(isCancelable)
                 imgClose.isVisible = isCancelable
                 btnSelect.isVisible = isMultiSel
+                btnSelect.typeface = ResourcesCompat.getFont(mActivity, R.font.font_open_sans_regular)
 
                 imgClose.setOnClickListener { dismiss() }
 

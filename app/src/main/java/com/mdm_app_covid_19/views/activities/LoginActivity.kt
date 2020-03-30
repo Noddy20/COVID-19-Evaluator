@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.transition.TransitionManager
@@ -14,12 +15,14 @@ import com.mdm_app_covid_19.data.repo.AuthRepo
 import com.mdm_app_covid_19.data.repo.ResponseStatus
 import com.mdm_app_covid_19.extFunctions.*
 import com.mdm_app_covid_19.utils.DisposableClickListener
+import com.mdm_app_covid_19.utils.EmojiFilter
 import com.mdm_app_covid_19.utils.MyTextChangeValidationUtils
 import com.mdm_app_covid_19.viewModels.LoginActivityVM
 import com.mdm_app_covid_19.viewModels.MyViewModelFactory
 import com.mdm_app_covid_19.views.dialogs.DialogMsg
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.imgBg
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.activity_splash.*
 import org.jetbrains.anko.sdk27.coroutines.onFocusChange
 import org.jetbrains.anko.toast
@@ -78,6 +81,8 @@ class LoginActivity : BaseActivity() {
         btnResendOtp.hide()
         btnResendOtp.setEnableDisable(false)
 
+        btnSendOtp.typeface = ResourcesCompat.getFont(this, R.font.font_open_sans_bold)
+
         Glide.with(this)
             .load(R.drawable.img_login_bg)
             .fitCenter()
@@ -90,6 +95,9 @@ class LoginActivity : BaseActivity() {
         etPhnNum.onFocusChange { v, hasFocus ->
             viewPhnEdit.isSelected = hasFocus
         }
+
+        etPhnNum.filters = EmojiFilter.getFilter(10)
+        etOtp.filters = EmojiFilter.getFilter(6)
 
         /*val params = HashMap<String, Any?>()
         params["mobileNo"] = "+918282828282"
@@ -148,8 +156,9 @@ class LoginActivity : BaseActivity() {
             }
             toast(R.string.verif_success)
             dialogMsg.dismiss()
-            goToSignUpActivity()
+            goToSignUpActivity(true)
             finish()
+            overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
         })
 
     }

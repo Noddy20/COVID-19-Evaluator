@@ -3,13 +3,21 @@
 
 
     <style name="MyButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless">
-
+        <item name="fontFamily">@font/font_open_sans_regular</item>
     </style>
 
     <style name="MyBlueButtonStyle" parent="@style/Widget.AppCompat.Button">
         <item name="android:background">@drawable/bg_blue_rounded_btn</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="fontFamily">@font/font_open_sans_regular</item>
+        <item name="android:fontFamily">@font/font_open_sans_regular</item>
+        <item name="android:textAppearance">@style/MyBaseTextStyle</item>
+    </style>
+
+    <style name="MyBaseTextStyle" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/font_open_sans_regular</item>
+        <item name="android:fontFamily">@font/font_open_sans_regular</item>
     </style>
 
     <style name="MyTabStyle" parent="Widget.Design.TabLayout">
@@ -19,7 +27,21 @@
         <item name="tabSelectedTextColor">@color/colorPrimaryTheme</item>
         <item name="tabTextColor">@color/colorTextDim</item>
         <item name="tabIndicatorColor">@color/colorPrimaryTheme</item>
+        <item name="tabBackground">@drawable/selector_tab_indicator</item>
+        <item name="fontFamily">@font/font_open_sans_regular</item>
         <!--<item name="android:fontFamily">@font/monster_rat_medium</item>-->
+    </style>
+
+    <style name="ExpandedAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/font_open_sans_regular</item>
+    </style>
+
+    <style name="CollapsedAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/font_open_sans_regular</item>
     </style>
 
 </resources>

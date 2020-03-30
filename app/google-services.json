@@ -8,6 +8,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:175692268453:android:35d7f2c8032bbe00181e4c",
+        "android_client_info": {
+          "package_name": "com.mdm_app_covid_19"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175692268453-k35e5slpf9f7vi274pdeo869tedtbr2a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mdm_app_covid_19",
+            "certificate_hash": "48fd447e4248c70ef7e875455677ce5dd1df9830"
+          }
+        },
+        {
+          "client_id": "175692268453-ub5fs1vdmuhfv65ms1k9guciglaomme7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ84gCirxKwZfQgIfknyw1CxtnF2ScZX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175692268453-ub5fs1vdmuhfv65ms1k9guciglaomme7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:175692268453:android:f8ed208bb51a9453181e4c",
         "android_client_info": {
           "package_name": "com.mdm_app_covid_19.dev"

@@ -3,6 +3,7 @@ package com.mdm_app_covid_19.views.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.mdm_app_covid_19.R
@@ -41,7 +42,7 @@ class ToWhomActivity : BaseActivity() {
 
         if (UserModel.getSavedUserModel()?.userId?.trim().isNullOrEmpty()){
             dialogMsg.showGeneralError("Session expired!", btnTxt = "Retry", onClickAction = {
-                goToLoginActivity()
+                goToLoginActivity(false)
                 finishAffinity()
             })
         }else{
@@ -86,6 +87,7 @@ class ToWhomActivity : BaseActivity() {
     private fun setClickListeners(){
         compositeDisposable += clickObservable
 
+        btnNext.typeface = ResourcesCompat.getFont(this, R.font.font_open_sans_bold)
         clickObservable.addViewClicks(btnNext)
     }
 

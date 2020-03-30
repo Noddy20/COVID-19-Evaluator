@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/font_open_sans_regular</item>
+
+        <!-- Transitions -->
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+
+        <!--<item name="android:windowEnterTransition">@transition/transition_activity_right_slide_fade</item>
+        <item name="android:windowReenterTransition">@transition/transition_activity_fade</item>-->
+        <!--<item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowExitTransition">@transition/transition_activity_fade</item>-->
+    </style>
+</resources>

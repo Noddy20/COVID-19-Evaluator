@@ -46,6 +46,8 @@
         style="@style/MyBlueButtonStyle"
         android:layout_margin="@dimen/_10sdp"
         android:id="@+id/btnNext"
+        android:fontFamily="@font/font_open_sans_bold"
+        android:textSize="@dimen/_12ssp"
         android:layout_alignParentBottom="true"/>
 
 

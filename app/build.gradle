@@ -6,6 +6,14 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'  // Crashlytics Gradle plugin
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/run/media/naresh/My Projects/My Current Projects/COVID-Demo/mdm_covid_19_key.jks')
+            storePassword 'android'
+            keyAlias = 'android'
+            keyPassword 'android'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
@@ -20,12 +28,14 @@ android {
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
         release {
             minifyEnabled true
             shrinkResources true
+            //debuggable true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -46,14 +56,14 @@ android {
     flavorDimensions "default"
     productFlavors {
         production {
-            manifestPlaceholders = [appLabel: "COVID - 19"]
+            manifestPlaceholders = [appLabel: "COVID - 19 Tracker"]
             buildConfigField 'String', 'BASE_URL', '"http://35.154.166.4:3000/"'
             buildConfigField 'String', 'BASE_URL_API', '"http://35.154.166.4:3000/api/"'
 
             buildConfigField 'String', 'PLACES_API_KEY', '"AIzaSyDUVaukpOtw-LWgL5zHIEm6p4-U96Gg6Eg"'
         }
         dev {
-            manifestPlaceholders = [appLabel: "COVID - 19 Dev"]
+            manifestPlaceholders = [appLabel: "COVID - 19 Tracker Dev"]
             applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
 
@@ -87,6 +97,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-common-ktx:19.3.0'
     implementation "com.google.firebase:firebase-auth:19.3.0"
     implementation "com.google.firebase:firebase-crashlytics:17.0.0-beta02"
+    implementation 'com.google.firebase:firebase-firestore-ktx:21.4.1'
 
     //Glide Image for loading
     implementation "com.github.bumptech.glide:glide:$glide_version"

@@ -21,10 +21,9 @@ import com.mdm_app_covid_19.extFunctions.isNetConnected
 import com.mdm_app_covid_19.httpCalls.FastNetworking
 import com.mdm_app_covid_19.httpCalls.MyMoshi
 import com.mdm_app_covid_19.httpCalls.Urls
-import io.reactivex.Completable
-import io.reactivex.Single
-import io.reactivex.SingleEmitter
+import io.reactivex.*
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
@@ -46,8 +45,35 @@ class AuthRepo(private val compositeDisposable: CompositeDisposable, private val
     private var mResendToken: ForceResendingToken? = null
 
 
-    fun sendOtp(phoneNo: String, onCodeSent: (verificationId: String?) -> Unit) : Single<PhoneAuthCredential> {
-        return Single.create { emitter ->
+    fun sendOtp(phoneNo: String, onCodeSent: (verificationId: String?) -> Unit) : Observable<PhoneAuthCredential> {
+        return Observable.create { emitter ->
+            val mCallBacks: OnVerificationStateChangedCallbacks =
+                object : OnVerificationStateChangedCallbacks() {
+                    override fun onCodeSent(verificationId: String, token: ForceResendingToken) {
+                        mVerificationId = verificationId
+                        mResendToken = token
+                        onCodeSent(verificationId)
+                    }
+
+                    override fun onVerificationCompleted(phoneAuthCredential: PhoneAuthCredential) {
+                        emitter.onNext(phoneAuthCredential)
+                    }
+
+                    override fun onVerificationFailed(e: FirebaseException) {
+                        emitter.onError(e)
+                    }
+                }
+
+            mPhoneAuthProvider.verifyPhoneNumber(
+                phoneNo,
+                RESEND_OTP_TIME_INTERVAL,
+                TimeUnit.SECONDS,
+                TaskExecutors.MAIN_THREAD,
+                mCallBacks
+            )
+        }
+
+        /*return Single.create { emitter ->
 
             val mCallBacks: OnVerificationStateChangedCallbacks =
                 object : OnVerificationStateChangedCallbacks() {
@@ -73,11 +99,30 @@ class AuthRepo(private val compositeDisposable: CompositeDisposable, private val
                 TaskExecutors.MAIN_THREAD,
                 mCallBacks
             )
-        }
+        }*/
     }
 
-    fun getSendOtpObserver(onVerificationCompleted : (creds: PhoneAuthCredential?, e: Throwable?) -> Unit): DisposableSingleObserver<PhoneAuthCredential?>? {
-        return object : DisposableSingleObserver<PhoneAuthCredential?>() {
+    fun getSendOtpObserver(onVerificationCompleted : (creds: PhoneAuthCredential?, e: Throwable?) -> Unit): Observer<PhoneAuthCredential?>? {
+        return object : Observer<PhoneAuthCredential?>{
+            override fun onComplete() {
+
+            }
+
+            override fun onSubscribe(d: Disposable) {
+                compositeDisposable.add(d)
+            }
+
+            override fun onNext(t: PhoneAuthCredential) {
+                onVerificationCompleted(t, null)
+            }
+
+            override fun onError(e: Throwable) {
+                onVerificationCompleted(null, e)
+            }
+
+        }
+
+        /*return object : DisposableSingleObserver<PhoneAuthCredential?>() {
             override fun onSuccess(phoneAuthCredential: PhoneAuthCredential) {
                 onVerificationCompleted(phoneAuthCredential, null)
             }
@@ -85,11 +130,29 @@ class AuthRepo(private val compositeDisposable: CompositeDisposable, private val
             override fun onError(e: Throwable) {
                 onVerificationCompleted(null, e)
             }
-        }
+        }*/
     }
 
-    fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential?): Single<Boolean?> {
-        return Single.create { emitter: SingleEmitter<Boolean?> ->
+    fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential?): Observable<Boolean> {
+
+        return Observable.create { emitter ->
+            mAuth.signInWithCredential(credential!!)
+                .addOnCompleteListener(TaskExecutors.MAIN_THREAD,
+                    OnCompleteListener { task: Task<AuthResult?> ->
+                        emitter.onNext(
+                            task.isSuccessful
+                        )
+                    }
+                )
+                .addOnFailureListener(
+                    TaskExecutors.MAIN_THREAD,
+                    OnFailureListener { t: Exception? ->
+                        emitter.onError(t!!)
+                    }
+                )
+        }
+
+        /*return Single.create { emitter: SingleEmitter<Boolean?> ->
             mAuth.signInWithCredential(credential!!)
                 .addOnCompleteListener(TaskExecutors.MAIN_THREAD,
                     OnCompleteListener { task: Task<AuthResult?> ->
@@ -102,11 +165,29 @@ class AuthRepo(private val compositeDisposable: CompositeDisposable, private val
                     TaskExecutors.MAIN_THREAD,
                     OnFailureListener { t: Exception? -> emitter.onError(t!!) }
                 )
-        }
+        }*/
     }
 
-    fun getSignInObserver(onSignInResult: (success: Boolean, e: Throwable?) -> Unit): DisposableSingleObserver<Boolean?>? {
-        return object : DisposableSingleObserver<Boolean?>() {
+    fun getSignInObserver(onSignInResult: (success: Boolean, e: Throwable?) -> Unit): Observer<Boolean> {
+        return object : Observer<Boolean>{
+            override fun onComplete() {
+                onSignInResult(true, null)
+            }
+            override fun onSubscribe(d: Disposable) {
+                compositeDisposable.add(d)
+            }
+
+            override fun onNext(t: Boolean) {
+                onSignInResult(true, null)
+            }
+
+            override fun onError(e: Throwable) {
+                onSignInResult(false, e)
+                Log.v(TAG, "SignInObserver failed " + e.message)
+            }
+
+        }
+        /*return object : DisposableSingleObserver<Boolean?>() {
             override fun onSuccess(aBoolean: Boolean) {
                 onSignInResult(true, null)
             }
@@ -115,7 +196,7 @@ class AuthRepo(private val compositeDisposable: CompositeDisposable, private val
                 onSignInResult(false, e)
                 Log.v(TAG, "SignInObserver failed " + e.message)
             }
-        }
+        }*/
     }
 
     fun getServerLoginObservable(params: HashMap<String, Any?>): LiveData<BaseResponse<UserModel?>>{

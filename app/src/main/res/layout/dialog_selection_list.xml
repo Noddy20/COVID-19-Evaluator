@@ -34,11 +34,11 @@
 
             <TextView
                 android:id="@+id/txtTitle"
-                android:textStyle="bold"
                 android:layout_toStartOf="@+id/imgClose"
                 android:layout_width="match_parent"
                 android:gravity="center_horizontal"
                 android:text="@string/app_name"
+                android:fontFamily="@font/font_open_sans_bold"
                 android:textSize="@dimen/_14ssp"
                 android:layout_height="wrap_content"/>
 

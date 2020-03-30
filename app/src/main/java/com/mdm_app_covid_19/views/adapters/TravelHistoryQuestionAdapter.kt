@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mdm_app_covid_19.R
 import com.mdm_app_covid_19.data.models.QuestionModel
@@ -21,6 +22,8 @@ class TravelHistoryQuestionAdapter(private val mActivity: Activity) : RecyclerVi
     private val colorDimTxt = ContextCompat.getColor(mActivity, R.color.colorTextDim)
     private val colorRed = ContextCompat.getColor(mActivity, R.color.colorRedLight)
     private val colorBgGrey = ContextCompat.getColor(mActivity, R.color.colorBgGrey)
+
+    private val typeFace = ResourcesCompat.getFont(mActivity, R.font.font_open_sans_regular)
 
     private var arrayModel: List<QuestionModel> = ArrayList()
 
@@ -61,6 +64,8 @@ class TravelHistoryQuestionAdapter(private val mActivity: Activity) : RecyclerVi
         init {
             btnYes.setOnClickListener(this)
             btnNo.setOnClickListener(this)
+            btnYes.typeface = typeFace
+            btnNo.typeface = typeFace
         }
 
         override fun onClick(v: View?) {

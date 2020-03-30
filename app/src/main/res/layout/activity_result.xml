@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_marginTop="@dimen/_80sdp"
+                android:layout_marginTop="@dimen/_50sdp"
                 app:cardBackgroundColor="@color/colorBlackVar1"
                 app:cardCornerRadius="@dimen/_6sdp"
                 app:cardElevation="@dimen/_1sdp">
@@ -40,6 +40,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/conclusion"
+                        android:fontFamily="@font/font_open_sans_bold"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/_20ssp"/>
 
@@ -74,7 +75,7 @@
                             android:background="?attr/selectableItemBackground"
                             android:paddingStart="@dimen/_5sdp"
                             android:paddingEnd="@dimen/_5sdp"
-                            android:text="@string/app_name"
+                            android:text="@string/link_covid_govt_advisory"
                             android:id="@+id/txtLink"
                             android:textColor="@color/colorWhite"
                             android:gravity="start|center_vertical"
@@ -95,6 +96,8 @@
         style="@style/MyBlueButtonStyle"
         android:layout_margin="@dimen/_10sdp"
         android:id="@+id/btnBack"
+        android:fontFamily="@font/font_open_sans_bold"
+        android:textSize="@dimen/_12ssp"
         android:layout_alignParentBottom="true"/>
 
 

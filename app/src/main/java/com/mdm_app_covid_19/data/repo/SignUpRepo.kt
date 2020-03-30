@@ -91,16 +91,20 @@ class SignUpRepo(private val compositeDisposable: CompositeDisposable, private v
                     }
                     }
                     address.locality?.let {     //City
-                        sb.append(it).append("\n")
+                        if (!sb.contains(it, true))
+                            sb.append(it).append("\n")
                     }
                     address.adminArea?.let {     //State
-                        sb.append(it).append("\n")
+                        if (!sb.contains(it, true))
+                            sb.append(it).append("\n")
                     }
                     address.postalCode?.let {     //Postal code
-                        sb.append(it).append("\n")
+                        if (!sb.contains(it, true))
+                            sb.append(it).append("\n")
                     }
                     address.countryName?.let{
-                        sb.append(it)
+                        if (!sb.contains(it, true))
+                            sb.append(it)
                     }
 
                     result = sb.toString()

@@ -29,6 +29,12 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/select_travel_history"
+                    android:paddingBottom="@dimen/_5sdp"
+                    />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -40,24 +46,33 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:id="@+id/btnInternational"
-                        android:background="@drawable/bg_accent_rounded"
+                        android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         android:focusable="true"
+                        android:drawableStart="@drawable/selector_check_radio"
+                        android:paddingStart="@dimen/_5sdp"
                         style="@style/MyButtonStyle"
                         android:text="@string/international"
-                        android:textColor="@color/colorWhite"
+                        android:textColor="@color/colorText"
+                        />
+                    <View
+                        android:layout_width="@dimen/_2sdp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorWhite"
                         />
                     <android.widget.Button
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:drawableStart="@drawable/selector_check_radio"
+                        android:paddingStart="@dimen/_5sdp"
                         android:id="@+id/btnDomestic"
                         android:clickable="true"
                         android:focusable="true"
                         style="@style/MyButtonStyle"
                         android:text="@string/domestic"
                         android:background="?attr/selectableItemBackground"
-                        android:textColor="@color/colorTextDim"
+                        android:textColor="@color/colorText"
                         />
                 </LinearLayout>
 
@@ -157,6 +172,8 @@
         android:layout_height="wrap_content"
         android:text="@string/next"
         style="@style/MyBlueButtonStyle"
+        android:fontFamily="@font/font_open_sans_bold"
+        android:textSize="@dimen/_12ssp"
         android:layout_margin="@dimen/_10sdp"
         android:id="@+id/btnNext"
         android:layout_alignParentBottom="true"/>

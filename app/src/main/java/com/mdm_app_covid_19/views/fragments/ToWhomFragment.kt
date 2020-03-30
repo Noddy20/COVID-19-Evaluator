@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -20,6 +21,7 @@ import com.mdm_app_covid_19.data.models.SubmitDataModel
 import com.mdm_app_covid_19.data.models.UserModel
 import com.mdm_app_covid_19.extFunctions.*
 import com.mdm_app_covid_19.utils.DisposableClickListener
+import com.mdm_app_covid_19.utils.EmojiFilter
 import com.mdm_app_covid_19.utils.MyTextChangeValidationUtils
 import com.mdm_app_covid_19.viewModels.MyViewModelFactory
 import com.mdm_app_covid_19.viewModels.ToWhomActivityVM
@@ -28,7 +30,9 @@ import com.mdm_app_covid_19.views.dialogs.DialogMsg
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.content_personal_info.*
 import kotlinx.android.synthetic.main.content_personal_info.view.*
+import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.sdk27.coroutines.onFocusChange
+import org.jetbrains.anko.textColor
 
 class ToWhomFragment : Fragment(){
 
@@ -108,6 +112,15 @@ class ToWhomFragment : Fragment(){
                 etMail.setText(it.email?:"")
                 etAddress.setText(it.address?:"")*/
             }
+            etName.isEnabled = false
+            etAge.isEnabled = false
+            ContextCompat.getColor(mActivity, R.color.colorText).let {
+                etName.textColor = it
+                etAge.textColor = it
+            }
+            etName.backgroundResource = R.drawable.bg_grey_rounded_edittext_normal
+            etAge.backgroundResource = R.drawable.bg_grey_rounded_edittext_normal
+
         }
 
         setLiveDataObservers()
@@ -120,6 +133,12 @@ class ToWhomFragment : Fragment(){
         //MyTextChangeValidationUtils.initRxValidation(compositeDisposable, etPhone, MyTextChangeValidationUtils.VALIDATION_PHONE)
         //MyTextChangeValidationUtils.initRxValidation(compositeDisposable, etMail, MyTextChangeValidationUtils.VALIDATION_EMAIL)
         //MyTextChangeValidationUtils.initRxValidation(compositeDisposable, etAddress, MyTextChangeValidationUtils.VALIDATION_EMPTY)
+
+        etName.filters = EmojiFilter.getFilter(100)
+        etAge.filters = EmojiFilter.getFilter(3)
+        //etPhone.filters = EmojiFilter.getFilter(15)
+        //etMail.filters = EmojiFilter.getFilter(100)
+        //etAddress.filters = EmojiFilter.getFilter(1000)
     }
 
     private fun setClickListeners(){
@@ -160,7 +179,7 @@ class ToWhomFragment : Fragment(){
             if (it.userId?.trim().isNullOrEmpty()){
                     dialogMsg.showGeneralError("Incomplete inputs!", btnTxt = "Retry", onClickAction = {
                         UserModel.clearSavedLogin()
-                        mActivity.goToLoginActivity()
+                        mActivity.goToLoginActivity(false)
                         mActivity.finishAffinity()
                     })
                     return
@@ -170,10 +189,10 @@ class ToWhomFragment : Fragment(){
         }
 
         val name = etName.text?.toString()?.trim()
-        if (!MyTextChangeValidationUtils.applyValidation(etName, MyTextChangeValidationUtils.VALIDATION_EMPTY, name, getString(R.string.err_enter_valid_name))) return
+        if (!isSelf && !MyTextChangeValidationUtils.applyValidation(etName, MyTextChangeValidationUtils.VALIDATION_NAME, name, getString(R.string.err_enter_valid_name))) return
 
         val age = etAge.text?.toString()?.trim()
-        if (!MyTextChangeValidationUtils.applyValidation(etAge, MyTextChangeValidationUtils.VALIDATION_AGE, age, getString(R.string.err_enter_valid_age))) return
+        if (!isSelf && !MyTextChangeValidationUtils.applyValidation(etAge, MyTextChangeValidationUtils.VALIDATION_AGE, age, getString(R.string.err_enter_valid_age))) return
 
         val relation = if (isSelf) "Self" else txtRelation.text?.toString()?.trim()
         if (!isSelf && !MyTextChangeValidationUtils.applyValidation(txtRelation, MyTextChangeValidationUtils.VALIDATION_EMPTY, relation, getString(R.string.err_select_relation))) return
@@ -198,7 +217,7 @@ class ToWhomFragment : Fragment(){
 
         SubmitDataModel.saveSubmitModel(submitDataModel)
 
-        mActivity.goToTravelHistoryActivity()
+        mActivity.goToTravelHistoryActivity(true)
 
     }
 

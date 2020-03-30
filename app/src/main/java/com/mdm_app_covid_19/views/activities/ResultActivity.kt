@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import com.mdm_app_covid_19.R
 import com.mdm_app_covid_19.data.models.ResultModel
@@ -18,6 +19,7 @@ import com.mdm_app_covid_19.viewModels.ResultActivityVM
 import com.mdm_app_covid_19.viewModels.TravelHistoryActivityVM
 import com.mdm_app_covid_19.views.dialogs.DialogMsg
 import kotlinx.android.synthetic.main.activity_result.*
+import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class ResultActivity : BaseActivity() {
 
@@ -39,6 +41,11 @@ class ResultActivity : BaseActivity() {
         init()
     }
 
+    override fun onBackPressed() {
+        goToWhomActivity(false)
+        finishAffinity()
+    }
+
     private fun init() {
         setClickListeners()
 
@@ -48,7 +55,7 @@ class ResultActivity : BaseActivity() {
 
         if (submitDataModel == null || SubmitDataModel.isInComplete(submitDataModel)) {
             dialogMsg.showGeneralError("Incomplete inputs!", btnTxt = "Retry", onClickAction = {
-                goToWhomActivity()
+                goToWhomActivity(false)
                 finishAffinity()
             })
         }else{
@@ -69,21 +76,25 @@ class ResultActivity : BaseActivity() {
             }
             setLiveDataObserver(params)
         }
+
+
     }
 
     private fun setClickListeners(){
         compositeDisposable += clickObservable
 
+        btnBack.typeface = ResourcesCompat.getFont(this, R.font.font_open_sans_bold)
         clickObservable.addViewClicks(btnBack, viewLink)
     }
 
     private val clickObservable = DisposableClickListener<Int>(){
         when(it){
             R.id.btnBack -> {
-                goToWhomActivity()
+                goToWhomActivity(false)
+                finishAffinity()
             }
             R.id.viewLink -> {
-                goToWebView("Instructions", resultModel?.conclusionFileUrl?:"")
+                goToWebView("Corona - Government Advisory", resultModel?.conclusionFileUrl?.trim()?:"", true)
             }
         }
     }
@@ -105,19 +116,21 @@ class ResultActivity : BaseActivity() {
     }
 
     private fun setResultData(resultModel: ResultModel){
-        var message = ""
-        if (!resultModel.conclusionTitle?.trim().isNullOrEmpty()){
-            message += resultModel.conclusionTitle?.trim() + " : "
-        }
-       if (!resultModel.conclusionMessage?.trim().isNullOrEmpty()){
-           message += resultModel.conclusionMessage?.trim()
-       }
-        txtMessage.text = message
+        val title: String? = if (!resultModel.conclusionTitle?.trim().isNullOrEmpty()){
+            resultModel.conclusionTitle?.trim()
+        } else null
+
+        val message: String? = if (!resultModel.conclusionMessage?.trim().isNullOrEmpty()){
+            resultModel.conclusionMessage?.trim()
+        }else null
+
+        val strMsg = title + (if(!title.isNullOrEmpty() && !message.isNullOrEmpty()) "\n\n" else "") + message
+        txtMessage.text = strMsg
 
         if (resultModel.conclusionFileUrl?.trim().isNullOrEmpty()){
             viewLink.hide()
         }else{
-            txtLink.text = resultModel.conclusionFileUrl?.trim()
+            //txtLink.text = resultModel.conclusionFileUrl?.trim()
             viewLink.show()
         }
 

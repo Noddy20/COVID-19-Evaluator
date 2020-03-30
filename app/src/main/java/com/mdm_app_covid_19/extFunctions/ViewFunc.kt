@@ -56,7 +56,7 @@ fun View.setEnableDisable(isEnb: Boolean){
         isEnabled = true
         alpha = 1f
     }else{
-        isEnabled = true
+        isEnabled = false
         alpha = 0.4f
     }
 }
