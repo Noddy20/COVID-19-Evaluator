@@ -8,7 +8,7 @@ apply plugin: 'com.google.firebase.crashlytics'  // Crashlytics Gradle plugin
 android {
     signingConfigs {
         release {
-            storeFile file('/run/media/naresh/My Projects/My Current Projects/COVID-Demo/mdm_covid_19_key.jks')
+            storeFile file('/mnt/0DF706A20DF706A2/V2R Current Projects/COVID-Demo/mdm_covid_19_key.jks')
             storePassword 'android'
             keyAlias = 'android'
             keyPassword 'android'

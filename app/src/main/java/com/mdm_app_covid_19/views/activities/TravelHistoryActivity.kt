@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.TransitionManager
 import com.mdm_app_covid_19.R
 import com.mdm_app_covid_19.data.models.*
 import com.mdm_app_covid_19.data.repo.ResponseStatus
@@ -18,7 +19,8 @@ import com.mdm_app_covid_19.viewModels.MyViewModelFactory
 import com.mdm_app_covid_19.viewModels.TravelHistoryActivityVM
 import com.mdm_app_covid_19.views.adapters.TravelHistoryQuestionAdapter
 import com.mdm_app_covid_19.views.dialogs.DialogMsg
-import kotlinx.android.synthetic.main.activity_sign_up.*
+import com.transitionseverywhere.ChangeText
+import com.transitionseverywhere.Recolor
 import kotlinx.android.synthetic.main.activity_travel_history.*
 import kotlinx.android.synthetic.main.activity_travel_history.btnNext
 import org.jetbrains.anko.backgroundResource
@@ -36,7 +38,7 @@ class TravelHistoryActivity : BaseActivity() {
     private val viewModel: TravelHistoryActivityVM by viewModels { MyViewModelFactory(application) }
     private lateinit var dialogMsg: DialogMsg
 
-    private var travelType = 0
+    private var travelType = -1
 
     private var countryList: List<CountryModel> = ArrayList()
     private var stateList: List<StateModel> = ArrayList()
@@ -81,79 +83,115 @@ class TravelHistoryActivity : BaseActivity() {
     }
 
     private fun noTravelUi(){
-
-        //TransitionManager.beginDelayedTransition(viewRootContent)
-
-        //btnInternational.backgroundResource = R.drawable.bg_accent_rounded
-        //btnInternational.textColor = ContextCompat.getColor(this, R.color.colorWhite)
-
         btnDomestic.isSelected = false
         btnInternational.isSelected = false
+        btnNone.isSelected = true
 
-        // btnDomestic.setAttrAsDrawableBackground(R.attr.selectableItemBackground)
-        //btnDomestic.textColor = ContextCompat.getColor(this, R.color.colorTextDim)
+
+        if (travelType != 0){
+            TransitionManager.beginDelayedTransition(viewRootContent, Recolor())
+            if(travelType == 1){
+                btnInternational.setAttrAsDrawableBackground(R.attr.selectableItemBackground)
+
+                btnNone.backgroundResource = R.drawable.bg_accent_rounded_right
+                btnNone.textColor = ContextCompat.getColor(this, R.color.colorWhite)
+                btnInternational.textColor = ContextCompat.getColor(this, R.color.colorText)
+            }else{
+                btnDomestic.setAttrAsDrawableBackground(R.attr.selectableItemBackground)
+
+                btnNone.backgroundResource = R.drawable.bg_accent_rounded_right
+                btnNone.textColor = ContextCompat.getColor(this, R.color.colorWhite)
+                btnDomestic.textColor = ContextCompat.getColor(this, R.color.colorText)
+            }
+        }else return
+
+        TransitionManager.beginDelayedTransition(viewRootContent, ChangeText())
 
         txtCity.text = ""
         txtCountry.text = ""
 
-        if (travelType == 1) {
-            txtCountry.hint = getString(R.string.country)
-            txtCountry.error = null
-            txtCity.error = null
-        }else if (travelType == 2){
-            txtCountry.hint = getString(R.string.state)
-            txtCity.hint = getString(R.string.city)
+        txtCountry.error = null
+        txtCity.error = null
 
-            progressBarCity.hide()
-
-            txtCountry.error = null
-            txtCity.error = null
-        }
+        TransitionManager.beginDelayedTransition(viewRootContent)
+        selCountry.hide()
+        selCity.hide()
+        progressBarCity.hide()
 
         travelType = 0
     }
 
     private fun internationalUi(){
-        travelType = 1
-
-        //TransitionManager.beginDelayedTransition(viewRootContent)
-
-        //btnInternational.backgroundResource = R.drawable.bg_accent_rounded
-        //btnInternational.textColor = ContextCompat.getColor(this, R.color.colorWhite)
-
         btnDomestic.isSelected = false
         btnInternational.isSelected = true
+        btnNone.isSelected = false
 
-       // btnDomestic.setAttrAsDrawableBackground(R.attr.selectableItemBackground)
-        //btnDomestic.textColor = ContextCompat.getColor(this, R.color.colorTextDim)
+        if (travelType != 1){
+            TransitionManager.beginDelayedTransition(viewRootContent, Recolor())
+            if(travelType == 0){
+                btnNone.setAttrAsDrawableBackground(R.attr.selectableItemBackground)
 
-        selCity.hide()
+                btnInternational.backgroundResource = R.drawable.bg_accent_rounded_left
+                btnInternational.textColor = ContextCompat.getColor(this, R.color.colorWhite)
+                btnNone.textColor = ContextCompat.getColor(this, R.color.colorText)
+            }else{
+                btnDomestic.setAttrAsDrawableBackground(R.attr.selectableItemBackground)
+
+                btnInternational.backgroundResource = R.drawable.bg_accent_rounded_left
+                btnInternational.textColor = ContextCompat.getColor(this, R.color.colorWhite)
+                btnDomestic.textColor = ContextCompat.getColor(this, R.color.colorText)
+            }
+        }else return
+
+        TransitionManager.beginDelayedTransition(viewRootContent, ChangeText())
+
         txtCity.text = ""
         txtCountry.text = ""
-        txtCountry.hint = "${getString(R.string.country)}*"
+        txtCountry.hint = getString(R.string.country)
         txtCountry.error = null
+
+        TransitionManager.beginDelayedTransition(viewRootContent)
+        selCountry.show()
+        selCity.hide()
+
+        travelType = 1
     }
 
     private fun domesticUi(){
-        travelType = 2
-
-        //TransitionManager.beginDelayedTransition(viewRootContent)
-
-       // btnDomestic.backgroundResource = R.drawable.bg_accent_rounded
-        //btnDomestic.textColor = ContextCompat.getColor(this, R.color.colorWhite)
-
-        //btnInternational.setAttrAsDrawableBackground(R.attr.selectableItemBackground)
-        //btnInternational.textColor = ContextCompat.getColor(this, R.color.colorTextDim)
-
         btnInternational.isSelected = false
         btnDomestic.isSelected = true
+        btnNone.isSelected = false
+
+        if (travelType != 2){
+            TransitionManager.beginDelayedTransition(viewRootContent, Recolor())
+            if(travelType == 0){
+                btnNone.setAttrAsDrawableBackground(R.attr.selectableItemBackground)
+
+                btnDomestic.backgroundResource = R.drawable.bg_accent_rectangle
+                btnDomestic.textColor = ContextCompat.getColor(this, R.color.colorWhite)
+                btnNone.textColor = ContextCompat.getColor(this, R.color.colorText)
+            }else{
+                btnInternational.setAttrAsDrawableBackground(R.attr.selectableItemBackground)
+
+                btnDomestic.backgroundResource = R.drawable.bg_accent_rectangle
+                btnDomestic.textColor = ContextCompat.getColor(this, R.color.colorWhite)
+                btnInternational.textColor = ContextCompat.getColor(this, R.color.colorText)
+            }
+        }else return
+
+
+        TransitionManager.beginDelayedTransition(viewRootContent, ChangeText())
 
         txtCountry.text = ""
-        txtCountry.hint = "${getString(R.string.state)}*"
-        txtCity.hint = "${getString(R.string.city)}*"
+        txtCountry.hint = getString(R.string.state)
         txtCountry.error = null
         txtCity.error = null
+
+        TransitionManager.beginDelayedTransition(viewRootContent)
+        selCountry.show()
         selCity.show()
+
+        travelType = 2
     }
 
     private fun setClickListeners(){
@@ -161,12 +199,13 @@ class TravelHistoryActivity : BaseActivity() {
 
         btnNext.typeface = ResourcesCompat.getFont(this, R.font.font_open_sans_bold)
 
-        ResourcesCompat.getFont(this, R.font.font_open_sans_regular).let {
+        ResourcesCompat.getFont(this, R.font.font_open_sans_regular)?.let {
             btnInternational.typeface = it
             btnDomestic.typeface = it
+            btnNone.typeface = it
         }
 
-        clickObservable.addViewClicks(btnNext, btnInternational, btnDomestic, selCountry, selCity)
+        clickObservable.addViewClicks(btnNext, btnInternational, btnDomestic, btnNone, selCountry, selCity)
     }
 
     private val clickObservable = DisposableClickListener<Int>{
@@ -175,12 +214,13 @@ class TravelHistoryActivity : BaseActivity() {
                 onNextClick()
             }
             R.id.btnInternational -> {
-                if (travelType == 1) noTravelUi()
-                else internationalUi()
+                internationalUi()
             }
             R.id.btnDomestic -> {
-                if (travelType == 2) noTravelUi()
-                else domesticUi()
+               domesticUi()
+            }
+            R.id.btnNone -> {
+                noTravelUi()
             }
             R.id.selCountry -> {
                 when (travelType) {
