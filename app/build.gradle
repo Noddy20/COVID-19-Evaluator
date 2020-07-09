@@ -6,14 +6,7 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'  // Crashlytics Gradle plugin
 
 android {
-    signingConfigs {
-        release {
-            storeFile file('/mnt/0DF706A20DF706A2/V2R Current Projects/COVID-Demo/mdm_covid_19_key.jks')
-            storePassword 'android'
-            keyAlias = 'android'
-            keyPassword 'android'
-        }
-    }
+   
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
@@ -57,20 +50,20 @@ android {
     productFlavors {
         production {
             manifestPlaceholders = [appLabel: "COVID - 19 Tracker"]
-            buildConfigField 'String', 'BASE_URL', '"http://35.154.166.4:3000/"'
-            buildConfigField 'String', 'BASE_URL_API', '"http://35.154.166.4:3000/api/"'
+            buildConfigField 'String', 'BASE_URL', '"SERVER_BASE_URL"'
+            buildConfigField 'String', 'BASE_URL_API', '"API_BASE_URL"'
 
-            buildConfigField 'String', 'PLACES_API_KEY', '"AIzaSyDUVaukpOtw-LWgL5zHIEm6p4-U96Gg6Eg"'
+            buildConfigField 'String', 'PLACES_API_KEY', '"API_KEY"'
         }
         dev {
             manifestPlaceholders = [appLabel: "COVID - 19 Tracker Dev"]
             applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
 
-            buildConfigField 'String', 'BASE_URL', '"http://35.154.166.4:3000/"'
-            buildConfigField 'String', 'BASE_URL_API', '"http://35.154.166.4:3000/api/"'
+            buildConfigField 'String', 'BASE_URL', '"SERVER_BASE_URL"'
+            buildConfigField 'String', 'BASE_URL_API', '"API_BASE_URL"'
 
-            buildConfigField 'String', 'PLACES_API_KEY', '"AIzaSyDUVaukpOtw-LWgL5zHIEm6p4-U96Gg6Eg"'
+            buildConfigField 'String', 'PLACES_API_KEY', '"API_KEY"'
 
         }
     }
